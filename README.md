@@ -42,7 +42,7 @@ A screenshot of the Reimburse application command line interface.
 Run the appliction with Node.js.
 
 ```bash
-node reimburse.js
+node cliHandler.js
 ```
 
 ## Development

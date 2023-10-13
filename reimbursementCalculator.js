@@ -13,39 +13,46 @@ function convertDate(date) {
   return new Date(`${year}-${month}-${day}`);
 }
 
-// calculate the reimbursement amount for a specific project set
 function calculateReimbursement(projectSet) {
   let days = {};
   let totalReimbursement = 0;
 
-  // Sort projectSet  projects by start date
+  // Sort projects by start date
   projectSet.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
-  // iterate over the dates, and convert them so they can be handled by the data object.
+
+  // Iterate over the projects
   projectSet.forEach((project) => {
     let startDate = convertDate(project.startDate);
     let endDate = convertDate(project.endDate);
-    // deep copy of startDate since the Date object is mutable
     let currentDay = new Date(startDate.getTime());
 
+    // Iterate over each day in the project
     for (
       ;
-      // compare just the date parts so that the time doesn't affect the comparison
       currentDay.toDateString() !== endDate.toDateString();
       currentDay.setDate(currentDay.getDate() + 1)
     ) {
-      // format the date to match the format of the keys in the days object
-      let dayStr = currentDay.toISOString().split("T")[0];
-
-      if (days[dayStr]) {
-        days[dayStr].type = "full";
+      let currentDayStr = currentDay.toISOString().split("T")[0];
+      if (days[currentDayStr]) {
+        days[currentDayStr].type = "full";
       } else {
-        days[dayStr] = {
+        days[currentDayStr] = {
           type: "travel",
-          city: project.cityType, // Changed to cityType to match your Project class
+          city: project.cityType,
         };
       }
     }
-    currentDay.setDate(currentDay.getDate() - 1); // Reset to original value if you intend to reuse currentDay
+
+    // Include the last day (endDate)
+    let lastDayStr = endDate.toISOString().split("T")[0];
+    if (days[lastDayStr]) {
+      days[lastDayStr].type = "full";
+    } else {
+      days[lastDayStr] = {
+        type: "travel",
+        city: project.cityType,
+      };
+    }
   });
 
   let sortedDays = Object.keys(days)
@@ -72,9 +79,9 @@ const projectSet1 = [
 ];
 
 const projectSet2 = [
-  { cityType: "l", startDate: "09-01-2015", endDate: "09-01-2015" },
-  { cityType: "h", startDate: "09-02-2015", endDate: "09-06-2015" },
-  { cityType: "l", startDate: "09-06-2015", endDate: "09-08-2015" },
+  { cityType: "l", startDate: "09-01-2015", endDate: "09-01-2015" }, // 45
+  { cityType: "h", startDate: "09-02-2015", endDate: "09-06-2015" }, // 85 + 85 + 85 + 85 - double check the rules
+  { cityType: "l", startDate: "09-06-2015", endDate: "09-08-2015" }, // 75 + 45  // 505 total?
 ];
 
 console.log(
