@@ -55,6 +55,8 @@ const asker = async () => {
 asker();
 
 /* TO DO 
+Make Class to construct a Set to contain projects
+Make a Class to construct a project objects
 Calculate the number of travel days
 Calculate the number of full days
 Calculate the reimbursement amount for the travel days
@@ -64,3 +66,37 @@ Return the total reimbursement amount
 Display the total reimbursement amount to the user
 
 */
+
+// Create a new Project and a new Set to hold projects
+
+// class Project to make a new Project
+class Project {
+  constructor(name, startDate, endDate, cityType) {
+    this.name = name;
+    this.startDate = startDate;
+    this.end = endDate;
+    this.cityType = cityType;
+  }
+}
+
+class ProjectSet {
+  constructor(name) {
+    this.name = name;
+    this.projects = [];
+  }
+  // method adds project to a set
+  addProject(project) {
+    this.projects.push(project);
+  }
+  // test feature listProjects lists all the projects in a set
+  listProjects() {
+    return this.projects
+      .map((project, index) => {
+        // add 1 to make projects not zero indexed
+        return `${index + 1}. ${project.name} (${
+          project.cityType
+        }) - from ${project.startDate.toDateString()} to ${project.endDate.toDateString()}`;
+      })
+      .join("\n");
+  }
+}
