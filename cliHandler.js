@@ -1,3 +1,6 @@
+// require the reimbursementCalculator function from the reimbursementCalculator.js file
+const reimbursementCalculator = require("./reimbursementCalculator");
+
 // prompts to get data from command line - from Node.js readline documentation https://nodejs.org/api/readline.html
 
 // use readline module to get input from user
@@ -18,7 +21,7 @@ const askQuestion = (rl, question) => {
   });
 };
 
-// Create a new Project and a new Set to hold projects
+// Create a Projects and a Sets to hold projects with Classes
 
 // class Project to make a new Project
 class Project {
@@ -134,8 +137,7 @@ const asker = async () => {
   rl.close();
   console.log("Here are your project sets: ");
   projectSets.forEach((set) => {
-    console.log(`Project Set: ${set.name}`);
-    console.log(set.projects);
+    console.log(reimbursementCalculator(set));
   });
 };
 
