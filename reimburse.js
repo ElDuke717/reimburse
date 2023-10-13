@@ -1,4 +1,4 @@
-// prompts to get data from command line
+// prompts to get data from command line - from Node.js readline documentation https://nodejs.org/api/readline.html
 
 // use readline module to get input from user
 const readline = require("readline");
@@ -19,7 +19,7 @@ const questions = [
   "Would you like to add another project? (y/n) ",
 ];
 
-// Function to ask a single question and return a Promise that resolves with the answer - this is a more robust apprach than just saving response synchronously
+// Function to ask a single question and return a Promise that resolves with the answer - this is a more robust apprach than just saving response synchronously https://nodejs.org/api/readline.html#promises-api
 const askQuestion = (rl, question) => {
   return new Promise((resolve) => {
     rl.question(question, (answer) => {
@@ -43,6 +43,7 @@ const asker = async () => {
       question === "Would you like to add another project? (y/n) " &&
       answer.toLowerCase() === "n"
     ) {
+      // if no more sets are to be added, break out of program and return result
       break;
     }
   }
@@ -78,10 +79,10 @@ class Project {
     this.cityType = cityType;
   }
 }
-
+// class to Create new sets to hold projects
 class ProjectSet {
-  constructor(name) {
-    this.name = name;
+  constructor(setName) {
+    this.name = setName;
     this.projects = [];
   }
   // method adds project to a set
