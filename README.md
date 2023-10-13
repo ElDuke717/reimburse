@@ -26,16 +26,14 @@ A screenshot of the Reimburse application command line interface.
 1. Clone the repository to your local machine.
 
    ```bash
-   git clone
+   git clone https://github.com/ElDuke717/reimburse
    ```
 
-2. Navigate to the directory.
+2. Navigate to the base directory.
 
    ```bash
-
+   cd reimburse
    ```
-
-3. Open the `index.html` file in your web browser.
 
 ## Usage
 
