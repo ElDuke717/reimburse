@@ -9,17 +9,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// Define the list of questions to be asked
-const questions = [
-  "What is your name? ",
-  "Enter in a project set name. A set is a collection of projects. ",
-  "What is the start date of your project? (Please format the dates as mm-dd-yyyy) ",
-  "What is the end date of your project? ",
-  "What is the city type of your project? (low or high cost) ",
-  "Would you like to add another project? (y/n) ",
-];
-
-// Function to ask a single question and return a Promise that resolves with the answer - this is a more robust apprach than just saving response synchronously https://nodejs.org/api/readline.html#promises-api
+// askQuestion is a helper function to ask a single question and return a Promise that resolves with the answer - this is a more robust apprach than just saving response synchronously https://nodejs.org/api/readline.html#promises-api
 const askQuestion = (rl, question) => {
   return new Promise((resolve) => {
     rl.question(question, (answer) => {
@@ -27,46 +17,6 @@ const askQuestion = (rl, question) => {
     });
   });
 };
-
-// Main function to ask all the questions
-const asker = async () => {
-  // Initialize an empty array to store the answers
-  let answers = [];
-  // loop through the questions array
-  for (let question of questions) {
-    // async await the answer to each question
-    const answer = await askQuestion(rl, question);
-    // push the answer to an array - later will use this in a constructor to create an object.
-    answers.push(answer);
-    // ensure letters entered are lower case
-    if (
-      question === "Would you like to add another project? (y/n) " &&
-      answer.toLowerCase() === "n"
-    ) {
-      // if no more sets are to be added, break out of program and return result
-      break;
-    }
-  }
-
-  console.log("Here are your answers: ", answers);
-  rl.close();
-};
-
-// invoke asker function - later this will be used to create project objects and then sets
-asker();
-
-/* TO DO 
-Make Class to construct a Set to contain projects
-Make a Class to construct a project objects
-Calculate the number of travel days
-Calculate the number of full days
-Calculate the reimbursement amount for the travel days
-Calculate the reimbursement amount for the full days
-Add the reimbursement amounts together to get the total reimbursement amount
-Return the total reimbursement amount
-Display the total reimbursement amount to the user
-
-*/
 
 // Create a new Project and a new Set to hold projects
 
@@ -89,15 +39,116 @@ class ProjectSet {
   addProject(project) {
     this.projects.push(project);
   }
-  // test feature listProjects lists all the projects in a set
-  listProjects() {
-    return this.projects
-      .map((project, index) => {
-        // add 1 to make projects not zero indexed
-        return `${index + 1}. ${project.name} (${
-          project.cityType
-        }) - from ${project.startDate.toDateString()} to ${project.endDate.toDateString()}`;
-      })
-      .join("\n");
-  }
 }
+
+// Array to hold Project Sets
+const projectSets = [];
+
+// Helper functions to validate if inputs are in the correct format:
+const isValidDate = (date) => {
+  // this regex verifies if the date is in the correct format: mm-dd-yyyy
+  const regex = /^\d{2}-\d{2}-\d{4}$/;
+  return regex.test(date);
+};
+
+// Helper function to validate if city types are in the correct format:
+const isValidCityType = (type) => {
+  return type === "l" || type === "h";
+};
+
+// Main function to ask all the questions and creates objects based on projects and projectSet arrays
+const asker = async () => {
+  // while loop runs until no sets are added
+  while (true) {
+    const setName = await askQuestion(
+      rl,
+      "Enter in a project set name.  A project set is a collection of related projects: "
+    );
+    const projectSet = new ProjectSet(setName);
+    // runs while projects are being added
+    while (true) {
+      const name = await askQuestion(rl, "What is the name of your project? ");
+      // define variable, end loop if entry is valid, otherwise request valid entry.
+      let startDate;
+      while (true) {
+        startDate = await askQuestion(
+          rl,
+          "What is the start date of your project? Please use the following format: mm-dd-yyyy "
+        );
+        if (isValidDate(startDate)) {
+          break;
+        } else {
+          console.log("Invalid date format. Please enter again.");
+        }
+      }
+
+      let endDate;
+      while (true) {
+        endDate = await askQuestion(
+          rl,
+          "What is the end date of your project? Please use the following format: mm-dd-yyyy "
+        );
+        if (isValidDate(endDate)) {
+          break;
+        } else {
+          console.log("Invalid date format. Please enter again.");
+        }
+      }
+
+      let cityType;
+      while (true) {
+        cityType = await askQuestion(
+          rl,
+          "What is the city type of your project? (l=low or h=high cost) "
+        );
+        if (isValidCityType(cityType)) {
+          break;
+        } else {
+          console.log("Invalid city type. Please try again.");
+        }
+      }
+
+      const project = new Project(name, startDate, endDate, cityType);
+      projectSet.addProject(project);
+
+      const anotherProject = await askQuestion(
+        rl,
+        "Would you like to add another project? (y/n) "
+      );
+      if (anotherProject.toLowerCase() === "n") {
+        break;
+      }
+    }
+    // push project sets to an array to hold them
+    projectSets.push(projectSet);
+
+    const anotherSet = await askQuestion(
+      rl,
+      "Would you like to add another project set? (y/n) "
+    );
+    if (anotherSet.toLowerCase() === "n") {
+      break;
+    }
+  }
+  // stop running the readline interface - listen for this to execute any code.
+  rl.close();
+  console.log("Here are your project sets: ");
+  projectSets.forEach((set) => {
+    console.log(`Project Set: ${set.name}`);
+    console.log(set.projects);
+  });
+};
+
+// invoke asker function - later this will be used to create project objects and then sets
+asker();
+
+/* TO DO 
+Calculate the number of travel days
+Calculate the number of full days
+Calculate the reimbursement amount for the travel days
+Calculate the reimbursement amount for the full days
+Add the reimbursement amounts together to get the total reimbursement amount
+Return the total reimbursement amount
+Display the total reimbursement amount to the user
+
+*/
