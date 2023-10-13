@@ -1,0 +1,27 @@
+{
+  "name": "reimbursement-app",
+  "version": "1.0.0",
+  "description": "A simple command line app that calculates reimbursement expenses based on project sets, duration of each project and city cost.",
+  "main": "reimburse.js",
+  "scripts": {
+    "test": "node reimburse.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElDuke717/reimburse.git"
+  },
+  "keywords": [
+    "reimbursement",
+    "finance",
+    "expenses",
+    "travel",
+    "expenses",
+    "projects"
+  ],
+  "author": "Nick Huemmer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ElDuke717/reimburse/issues"
+  },
+  "homepage": "https://github.com/ElDuke717/reimburse#readme"
+}
