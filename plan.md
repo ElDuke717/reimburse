@@ -95,3 +95,18 @@ Formula for calculating reimbursement amount:
 - What is the end date of your project?
 - What is the city type of your project? (low or high cost)
 - Would you like to add another project? (y/n)
+
+## Logic behind travel days
+
+- If there is a gap between projects, then the days on either side of that gap are travel days.
+- If two projects push up against each other, or overlap, then those days are full days as well.
+- Any given day is only ever counted once, even if two projects are on the same day.
+- A travel day is reimbursed at a rate of 45 dollars per day in a low cost city.
+- A travel day is reimbursed at a rate of 55 dollars per day in a high cost city.
+
+
+
+## Logic behind full days 
+- A full day is reimbursed at a rate of 75 dollars per day in a low cost city.
+- A full day is reimbursed at a rate of 85 dollars per day in a high cost city.
+- If days overlap between high and low cost cities, then the default reimburse will be for high cost cities.
