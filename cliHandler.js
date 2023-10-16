@@ -137,10 +137,20 @@ const asker = async () => {
   rl.close();
   console.log("Here are your project sets: ");
   projectSets.forEach((set) => {
-    console.log(reimbursementCalculator(set));
+    console.log(`Project Set: ${set.name}`);
+    
+    set.projects.forEach((project, index) => {
+      console.log(`  Project ${index + 1}:`);
+      console.log(`    Name: ${project.name}`);
+      console.log(`    Start Date: ${project.startDate}`);
+      console.log(`    End Date: ${project.end}`);
+      console.log(`    City Type: ${project.cityType}`);
+    });
+    
+    // If you want to use your reimbursementCalculator, you can uncomment this
+    //console.log(reimbursementCalculator(set));
   });
 };
-
 // invoke asker function - later this will be used to create project objects and then sets
 asker();
 
