@@ -6,9 +6,10 @@ const generateProjectSetDays = require("./generateProjectSetDays");
 const convertProjects = require("./convertProjects");
 // require changeRates to change the rates for each day based on if there is a gap or not between dates
 const changeRates = require("./changeRates");
+// require reimbursementCalculator to calculate the total rates for each project set and the grand total
+const reimbursementCalculator = require("./reimbursementCalculator");
 
 // prompts to get data from command line - from Node.js readline documentation https://nodejs.org/api/readline.html
-
 // use readline module to get input from user
 const readline = require("readline");
 
@@ -65,6 +66,12 @@ const isValidCityType = (type) => {
   return type === "l" || type === "h";
 };
 
+// initialize rates to hold value of changedRates, returned by main
+let rates;
+
+// initialize setNames, an array to hold the names of the sets
+const setNames = [];
+
 // Main function to ask all the questions and creates objects based on projects and projectSet arrays
 // returns a promise that resolves with the projectSets array, an array of objects, each containing a set name and an array of projects
 // More data is collected than may be needed, but this allows for more flexibility in the future
@@ -75,6 +82,8 @@ const asker = async () => {
       "Enter in a project set name. A project set is a collection of related projects: "
     );
     const projectSet = []; // Using an array for each project set
+    // push the setName to the setNames array, used for outputting the total rates for each set
+    setNames.push(setName);
 
     while (true) {
       const name = await askQuestion(rl, "What is the name of your project? ");
@@ -164,9 +173,14 @@ const main = async () => {
     generateProjectSetDays(set)
   );
 
-  // use changeRates to change the rates for each day based on if there is a gap or not between dates
+  // changedRates is an array from passing changeRates to change the rates for each day based on if there is a gap or not between dates
   const changedRates = projectSetDays.map((set) => changeRates(set));
   console.log(changedRates);
+  // assign rates the value of changedRates
+  rates = changedRates;
+  return reimbursementCalculator(rates, setNames);
 };
 
 main();
+
+
