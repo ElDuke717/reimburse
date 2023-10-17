@@ -1,18 +1,32 @@
 const toDate = (dateString) => new Date(dateString);
 
-const projectSet2 = [
-  { city: "low", startDate: "2015-09-01", endDate: "2015-09-01" },
-  { city: "high", startDate: "2015-09-02", endDate: "2015-09-06" },
-  { city: "low", startDate: "2015-09-06", endDate: "2015-09-08" },
-];
+// const projectSet2 = [
+//   { cityType: "low", startDate: "2015-09-01", endDate: "2015-09-01" },
+//   { cityType: "high", startDate: "2015-09-02", endDate: "2015-09-06" },
+//   { cityType: "low", startDate: "2015-09-06", endDate: "2015-09-08" },
+// ];
 
+// const projectSet3 = {
+//   name: "cat",
+//   projects: [
+//     {
+//       name: "fun",
+//       startDate: "09-03-2012",
+//       end: "09-15-2012",
+//       cityType: "l",
+//     },
+//   ],
+// };
+
+// Takes an array of projects and returns an object with dates as keys and objects as values
+// will return an object with dates as keys and objects as values
 const generateProjectSetDays = (projects) => {
   let projectSetDays = {};
 
   projects.forEach((project) => {
     const start = toDate(project.startDate);
-    const end = toDate(project.endDate);
-    const rate = project.city === "high" ? 85 : 75;
+    const end = toDate(project.end); // Note: it's 'end', not 'endDate'
+    const rate = project.cityType === "h" ? 85 : 75; // Note: 'h' and 'l'
 
     for (
       let day = new Date(start);
@@ -21,12 +35,12 @@ const generateProjectSetDays = (projects) => {
     ) {
       const dayStr = day.toISOString().split("T")[0];
       if (!projectSetDays[dayStr]) {
-        projectSetDays[dayStr] = { rate, city: project.city };
+        projectSetDays[dayStr] = { rate, cityType: project.cityType };
       } else {
-        // Update the rate if the city is 'high'
-        if (project.city === "high") {
+        // Update the rate if the cityType is 'h'
+        if (project.cityType === "h") {
           projectSetDays[dayStr].rate = rate;
-          projectSetDays[dayStr].city = "high";
+          projectSetDays[dayStr].cityType = "h";
         }
       }
     }
@@ -35,8 +49,13 @@ const generateProjectSetDays = (projects) => {
   return projectSetDays;
 };
 
-const projectSetDays = generateProjectSetDays(projectSet2);
-console.log(projectSetDays);
+// Example usage
+//console.log(generateProjectSetDays(projectSet3));
+
+// const projectSetDays = generateProjectSetDays(projectSet2);
+// console.log(projectSetDays);
+
+module.exports = generateProjectSetDays;
 
 /*
 {

@@ -1,5 +1,8 @@
 // require the reimbursementCalculator function from the reimbursementCalculator.js file
-const reimbursementCalculator = require("./reimbursementCalculator");
+// const reimbursementCalculator = require("./reimbursementCalculator");
+
+// require generateProjectSetDays to convert the projectSet into an object with days
+const generateProjectSetDays = require("./generateProjectSetDays");
 
 // prompts to get data from command line - from Node.js readline documentation https://nodejs.org/api/readline.html
 
@@ -61,14 +64,13 @@ const isValidCityType = (type) => {
 
 // Main function to ask all the questions and creates objects based on projects and projectSet arrays
 const asker = async () => {
-  // while loop runs until no sets are added
   while (true) {
     const setName = await askQuestion(
       rl,
-      "Enter in a project set name.  A project set is a collection of related projects: "
+      "Enter in a project set name. A project set is a collection of related projects: "
     );
-    const projectSet = new ProjectSet(setName);
-    // runs while projects are being added
+    const projectSet = []; // Using an array for each project set
+
     while (true) {
       const name = await askQuestion(rl, "What is the name of your project? ");
       // define variable, end loop if entry is valid, otherwise request valid entry.
@@ -111,8 +113,13 @@ const asker = async () => {
         }
       }
 
-      const project = new Project(name, startDate, endDate, cityType);
-      projectSet.addProject(project);
+      const project = {
+        name,
+        startDate,
+        endDate,
+        cityType: cityType === "l" ? "low" : "high",
+      };
+      projectSet.push(project);
 
       const anotherProject = await askQuestion(
         rl,
@@ -123,7 +130,7 @@ const asker = async () => {
       }
     }
     // push project sets to an array to hold them
-    projectSets.push(projectSet);
+    projectSets.push({ setName, projects: projectSet });
 
     const anotherSet = await askQuestion(
       rl,
@@ -135,32 +142,27 @@ const asker = async () => {
   }
   // stop running the readline interface - listen for this to execute any code.
   rl.close();
-  console.log("Here are your project sets: ");
+
+  // Log out project sets in desired format
   projectSets.forEach((set) => {
-    console.log(`Project Set: ${set.name}`);
-    
-    set.projects.forEach((project, index) => {
-      console.log(`  Project ${index + 1}:`);
-      console.log(`    Name: ${project.name}`);
-      console.log(`    Start Date: ${project.startDate}`);
-      console.log(`    End Date: ${project.end}`);
-      console.log(`    City Type: ${project.cityType}`);
+    console.log(`Project Set: ${set.setName}`);
+    set.projects.forEach((project) => {
+      console.log({
+        name: project.name,
+        cityType: project.cityType,
+        startDate: project.startDate,
+        endDate: project.endDate,
+      });
+      // console.log('generateProjectSetDays', generateProjectSetDays(set.projects));
     });
-    
-    // If you want to use your reimbursementCalculator, you can uncomment this
-    //console.log(reimbursementCalculator(set));
   });
+  console.log("projectSets", projectSets);
+  return projectSets;
 };
+
 // invoke asker function - later this will be used to create project objects and then sets
 asker();
 
-/* TO DO 
-Calculate the number of travel days
-Calculate the number of full days
-Calculate the reimbursement amount for the travel days
-Calculate the reimbursement amount for the full days
-Add the reimbursement amounts together to get the total reimbursement amount
-Return the total reimbursement amount
-Display the total reimbursement amount to the user
+// const sets = asker();
 
-*/
+// console.log('sets', sets);

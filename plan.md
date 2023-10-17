@@ -104,9 +104,102 @@ Formula for calculating reimbursement amount:
 - A travel day is reimbursed at a rate of 45 dollars per day in a low cost city.
 - A travel day is reimbursed at a rate of 55 dollars per day in a high cost city.
 
+## Logic behind full days
 
-
-## Logic behind full days 
 - A full day is reimbursed at a rate of 75 dollars per day in a low cost city.
 - A full day is reimbursed at a rate of 85 dollars per day in a high cost city.
 - If days overlap between high and low cost cities, then the default reimburse will be for high cost cities.
+
+## Data flow through the application:
+
+All data is initially gathered in the following format - an array of set objects, each set object has a name and an array of projects. Each project has a name, a start date, an end date, and a city type (low or high cost).
+
+```javascript
+// cli handler output data format
+
+projectSets1 = [
+{ setName:1,
+projects: [
+{
+name: "Project 1",
+startDate: "9/1/15",
+endDate: "9/3/15",
+cityType: "low",
+},
+{
+name: "Project 2",
+startDate: "9/5/2015",
+endDate: "9/10/2015",
+cityType: "low",
+}
+];
+},
+{ setName:2,
+projects: [
+{
+name: "Project 1",
+startDate: "10/1/2015",
+endDate: "10/3/2015",
+cityType: "high",
+},
+{
+name: "Project 2",
+startDate: "11/5/2015",
+endDate: "11/10/2015",
+cityType: "low",
+},
+{
+name: "Project 3",
+startDate: "11/13/2015",
+endDate: "11/20/2015",
+cityType: "low",
+}
+];
+}
+]
+```
+
+This data is then parsed out into a separate array for each project set. Each project set array is an array of project objects. Each project object has a name, a start date, an end date, and a city type (low or high cost).
+
+```javascript
+// data format for generateProjectSetDays
+
+const projectSet2 = [
+  { cityType: "low", startDate: "2015-09-01", endDate: "2015-09-01" },
+  { cityType: "high", startDate: "2015-09-02", endDate: "2015-09-06" },
+  { cityType: "low", startDate: "2015-09-06", endDate: "2015-09-08" },
+];
+```
+
+The dates are then parsed by `generateProjectSetDays` to create an object of days for each project set. Each day object has a date as key and the value is an object with a rate, and a city type (low or high cost).
+
+```javascript
+{
+  '2015-09-01': { rate: 45, city: 'low' },
+  '2015-09-02': { rate: 85, city: 'high' },
+  '2015-09-03': { rate: 85, city: 'high' },
+  '2015-09-04': { rate: 85, city: 'high' },
+  '2015-09-05': { rate: 85, city: 'high' },
+  '2015-09-06': { rate: 85, city: 'high' },
+  '2015-09-07': { rate: 75, city: 'low' },
+  '2015-09-08': { rate: 45, city: 'low' }
+}
+```
+
+The `projectDays` object above is then passed to `changeRates` to find travel dates and change the rate to 45 or 55 dollars per day depending on the city type.
+
+```javascript
+{
+  '2015-09-01': { rate: 45, city: 'low' },
+  '2015-09-03': { rate: 55, city: 'high' },
+  '2015-09-04': { rate: 85, city: 'high' },
+  '2015-09-05': { rate: 55, city: 'high' },
+  '2015-09-07': { rate: 45, city: 'low' },
+  '2015-09-08': { rate: 75, city: 'low' },
+  '2015-09-09': { rate: 45, city: 'low' },
+  '2015-09-11': { rate: 55, city: 'high' },
+  '2015-09-12': { rate: 85, city: 'high' },
+  '2015-09-13': { rate: 85, city: 'high' },
+  '2015-09-14': { rate: 55, city: 'high' }
+}
+```
