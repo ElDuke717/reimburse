@@ -172,9 +172,8 @@ const main = async () => {
   const projectSetsFromAsker = await asker();
   const convertedProjectSets = convertProjects(projectSetsFromAsker);
   console.log("Project Sets:", convertedProjectSets);
-  const projectSetDays = convertedProjectSets.map((set) => {
-     generateProjectSetDays(set);
-  });
+  const projectSetDays = convertedProjectSets.map(set => generateProjectSetDays(set));
+
   console.log(projectSetDays);
 };
 

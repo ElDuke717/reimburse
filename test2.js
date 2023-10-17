@@ -27,39 +27,14 @@ const generateProjectSetDays = (projects) => {
       }
     }
   });
-  // return an object with dates as keys and objects as values
-  return projectSetDays;
+
+  return projectSetDays; // Added return
 };
 
+// const projectSet2 = [
+//   { cityType: "low", startDate: "2015-09-01", endDate: "2015-09-01" },
+//   { cityType: "high", startDate: "2015-09-02", endDate: "2015-09-06" },
+//   { cityType: "low", startDate: "2015-09-06", endDate: "2015-09-08" },
+// ];
 
-module.exports = generateProjectSetDays;
-
-/*
-{
-  '2015-09-01': { rate: 45, city: 'low' },
-  '2015-09-02': { rate: 85, city: 'high' },
-  '2015-09-03': { rate: 85, city: 'high' },
-  '2015-09-04': { rate: 85, city: 'high' },
-  '2015-09-05': { rate: 85, city: 'high' },
-  '2015-09-06': { rate: 85, city: 'high' },
-  '2015-09-07': { rate: 75, city: 'low' },
-  '2015-09-08': { rate: 45, city: 'low' }
-}
-
-OR
-
-{
-  '2015-09-01': { rate: 45, city: 'low' },
-  '2015-09-03': { rate: 55, city: 'high' },
-  '2015-09-04': { rate: 85, city: 'high' },
-  '2015-09-05': { rate: 55, city: 'high' },
-  '2015-09-07': { rate: 45, city: 'low' },
-  '2015-09-08': { rate: 75, city: 'low' },
-  '2015-09-09': { rate: 45, city: 'low' },
-  '2015-09-11': { rate: 55, city: 'high' },
-  '2015-09-12': { rate: 85, city: 'high' },
-  '2015-09-13': { rate: 85, city: 'high' },
-  '2015-09-14': { rate: 55, city: 'high' },  
-}
-
-*/
+// console.log(generateProjectSetDays(projectSet2));
