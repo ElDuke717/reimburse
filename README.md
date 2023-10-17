@@ -4,22 +4,18 @@
 
 ## Overview
 
-Reimburse is a simple application designed to help users calculate the amount they should be reimbursed for their business trips. It can be used on the command line or as a web application. The application adheres to specific rules that consider various types of days (travel days, full days, etc.) and cities (low cost, high cost).
-
-![Reimburse App](assets/img/reimburse-CLI.png)
-A screenshot of the Reimburse application command line interface.
+Reimburse is a simple application designed to help users calculate the amount they should be reimbursed for their business trips. It is a command line application and adheres to specific rules that consider various types of days (travel days, full days, etc.) and cities (low cost, high cost).
 
 ## Features
 
 - User-friendly CLI travel data input.
-- Use the command line with Node.js or a web browser to access the application.
+- Use the command line with Node.js.
 - Dynamic calculation of reimbursement based on user input.
-- Clear and straightforward UI for easy navigation and data entry.
 
 ## Requirements
 
 - Node.js (for CLI)
-- Modern web browser (Chrome, Firefox, Safari, Edge)
+- An environment for running Node.js applications
 
 ## Installation
 
@@ -32,24 +28,22 @@ A screenshot of the Reimburse application command line interface.
 2. Navigate to the base directory.
 
    ```bash
-   cd reimburse
+   cd reimbursement-app
    ```
 
 ## Usage
 
-### CLI
-
-Run the appliction with Node.js.
+While in the base directory, run the application with Node.js.
 
 ```bash
-node cliHandler.js
+node main.js
 ```
 
 ## Development
 
-The application is written in JavaScript and uses Node.js for the CLI.
+The application is written in JavaScript and uses Node.js for the command line interface (CLI).
 
-A later web application uses HTML, CSS, and JavaScript.
+A web application using based on this program will be built in the future.
 
 To contribute to the project:
 

@@ -1,22 +1,3 @@
-const data = [
-  {
-    "2010-09-03": { rate: 45, city: "low" },
-    "2010-09-04": { rate: 75, city: "low" },
-    "2010-09-05": { rate: 75, city: "low" },
-    "2010-09-06": { rate: 75, city: "low" },
-    "2010-09-07": { rate: 45, city: "low" },
-    "2012-08-09": { rate: 55, city: "high" },
-    "2012-08-10": { rate: 55, city: "high" },
-  },
-  {
-    "2010-09-08": { rate: 45, city: "low" },
-    "2010-09-09": { rate: 75, city: "low" },
-    "2010-09-10": { rate: 45, city: "low" },
-  },
-];
-
-const setTitles = ["Cat 1", "Dog 2"];
-
 // reimbursementCalculator(data) takes in the rate data (arrray of objects) and setTitles (array of strings)
 const reimbursementCalculator = (rateData, setTitles) => {
   let grandTotal = 0; // To hold the grand total of all rates
@@ -40,6 +21,25 @@ const reimbursementCalculator = (rateData, setTitles) => {
   console.log("Grand total rate:", grandTotal);
 };
 
-reimbursementCalculator(data, setTitles);
+// Test data
+// const data = [
+//   {
+//     "2010-09-03": { rate: 45, city: "low" },
+//     "2010-09-04": { rate: 75, city: "low" },
+//     "2010-09-05": { rate: 75, city: "low" },
+//     "2010-09-06": { rate: 75, city: "low" },
+//     "2010-09-07": { rate: 45, city: "low" },
+//     "2012-08-09": { rate: 55, city: "high" },
+//     "2012-08-10": { rate: 55, city: "high" },
+//   },
+//   {
+//     "2010-09-08": { rate: 45, city: "low" },
+//     "2010-09-09": { rate: 75, city: "low" },
+//     "2010-09-10": { rate: 45, city: "low" },
+//   },
+// ];
+
+// const setTitles = ["Cat 1", "Dog 2"];
+// reimbursementCalculator(data, setTitles);
 
 module.exports = reimbursementCalculator;

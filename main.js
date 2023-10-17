@@ -45,10 +45,6 @@ class ProjectSet {
     this.name = setName;
     this.projects = [];
   }
-  // method adds project to a set
-  addProject(project) {
-    this.projects.push(project);
-  }
 }
 
 // Array to hold Project Sets
@@ -79,7 +75,7 @@ const asker = async () => {
   while (true) {
     const setName = await askQuestion(
       rl,
-      "Enter in a project set name. A project set is a collection of related projects: "
+      "Enter in a set name. A set is a collection of related projects: "
     );
     const projectSet = []; // Using an array for each project set
     // push the setName to the setNames array, used for outputting the total rates for each set
@@ -126,7 +122,7 @@ const asker = async () => {
           console.log("Invalid city type. Please try again.");
         }
       }
-
+      //
       const project = {
         name,
         startDate,
@@ -181,6 +177,5 @@ const main = async () => {
   return reimbursementCalculator(rates, setNames);
 };
 
+// run the main function
 main();
-
-
