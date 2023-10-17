@@ -4,6 +4,9 @@
 // require generateProjectSetDays to convert the projectSet into an object with days
 const generateProjectSetDays = require("./generateProjectSetDays");
 
+// require convertProjects to convert the projectSet into an object with days
+const convertProjects = require("./convertProjects");
+
 // prompts to get data from command line - from Node.js readline documentation https://nodejs.org/api/readline.html
 
 // use readline module to get input from user
@@ -144,25 +147,35 @@ const asker = async () => {
   rl.close();
 
   // Log out project sets in desired format
-  projectSets.forEach((set) => {
-    console.log(`Project Set: ${set.setName}`);
-    set.projects.forEach((project) => {
-      console.log({
-        name: project.name,
-        cityType: project.cityType,
-        startDate: project.startDate,
-        endDate: project.endDate,
-      });
-      // console.log('generateProjectSetDays', generateProjectSetDays(set.projects));
-    });
-  });
-  console.log("projectSets", projectSets);
+  // projectSets.forEach((set) => {
+  //   console.log(`Project Set: ${set.setName}`);
+  //   set.projects.forEach((project) => {
+  //     console.log({
+  //       name: project.name,
+  //       cityType: project.cityType,
+  //       startDate: project.startDate,
+  //       endDate: project.endDate,
+  //     });
+  //   });
+  // });
+  // console.log("projectSets", projectSets);
+  // console.log("projectSets full", JSON.stringify(projectSets, null, 2));
+
+  // console.log("projectSets format change", convertProjects(projectSets));
+
+  // asker returns the projectSets array - an array of objects, each object is a set with a name and an array of projects
   return projectSets;
 };
 
-// invoke asker function - later this will be used to create project objects and then sets
-asker();
+// Main function to run the program - asynchronous as it issues a promise while questions are asked
+const main = async () => {
+  const projectSetsFromAsker = await asker();
+  const convertedProjectSets = convertProjects(projectSetsFromAsker);
+  console.log("Project Sets:", convertedProjectSets);
+  const projectSetDays = convertedProjectSets.map((set) => {
+     generateProjectSetDays(set);
+  });
+  console.log(projectSetDays);
+};
 
-// const sets = asker();
-
-// console.log('sets', sets);
+main();

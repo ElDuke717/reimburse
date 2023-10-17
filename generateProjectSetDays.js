@@ -1,3 +1,5 @@
+
+// Helper function to convert a date string to a Date object
 const toDate = (dateString) => new Date(dateString);
 
 // const projectSet2 = [
@@ -6,17 +8,6 @@ const toDate = (dateString) => new Date(dateString);
 //   { cityType: "low", startDate: "2015-09-06", endDate: "2015-09-08" },
 // ];
 
-// const projectSet3 = {
-//   name: "cat",
-//   projects: [
-//     {
-//       name: "fun",
-//       startDate: "09-03-2012",
-//       end: "09-15-2012",
-//       cityType: "l",
-//     },
-//   ],
-// };
 
 // Takes an array of projects and returns an object with dates as keys and objects as values
 // will return an object with dates as keys and objects as values
