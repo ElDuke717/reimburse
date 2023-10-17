@@ -1,11 +1,11 @@
-// require the reimbursementCalculator function from the reimbursementCalculator.js file
-// const reimbursementCalculator = require("./reimbursementCalculator");
+// This file is the entry point for the application
 
 // require generateProjectSetDays to convert the projectSet into an object with days
 const generateProjectSetDays = require("./generateProjectSetDays");
-
 // require convertProjects to convert the projectSet into an object with days
 const convertProjects = require("./convertProjects");
+// require changeRates to change the rates for each day based on if there is a gap or not between dates
+const changeRates = require("./changeRates");
 
 // prompts to get data from command line - from Node.js readline documentation https://nodejs.org/api/readline.html
 
@@ -66,6 +66,8 @@ const isValidCityType = (type) => {
 };
 
 // Main function to ask all the questions and creates objects based on projects and projectSet arrays
+// returns a promise that resolves with the projectSets array, an array of objects, each containing a set name and an array of projects
+// More data is collected than may be needed, but this allows for more flexibility in the future
 const asker = async () => {
   while (true) {
     const setName = await askQuestion(
@@ -146,35 +148,25 @@ const asker = async () => {
   // stop running the readline interface - listen for this to execute any code.
   rl.close();
 
-  // Log out project sets in desired format
-  // projectSets.forEach((set) => {
-  //   console.log(`Project Set: ${set.setName}`);
-  //   set.projects.forEach((project) => {
-  //     console.log({
-  //       name: project.name,
-  //       cityType: project.cityType,
-  //       startDate: project.startDate,
-  //       endDate: project.endDate,
-  //     });
-  //   });
-  // });
-  // console.log("projectSets", projectSets);
-  // console.log("projectSets full", JSON.stringify(projectSets, null, 2));
-
-  // console.log("projectSets format change", convertProjects(projectSets));
-
   // asker returns the projectSets array - an array of objects, each object is a set with a name and an array of projects
   return projectSets;
 };
 
 // Main function to run the program - asynchronous as it issues a promise while questions are asked
 const main = async () => {
+  // asker is async to await the response from the user
   const projectSetsFromAsker = await asker();
+  // convertProjects converts the projectSets array into an array of arrays of objects
   const convertedProjectSets = convertProjects(projectSetsFromAsker);
   console.log("Project Sets:", convertedProjectSets);
-  const projectSetDays = convertedProjectSets.map(set => generateProjectSetDays(set));
+  // projectSetDays is an array of
+  const projectSetDays = convertedProjectSets.map((set) =>
+    generateProjectSetDays(set)
+  );
 
-  console.log(projectSetDays);
+  // use changeRates to change the rates for each day based on if there is a gap or not between dates
+  const changedRates = projectSetDays.map((set) => changeRates(set));
+  console.log(changedRates);
 };
 
 main();

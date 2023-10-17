@@ -1,45 +1,4 @@
-const projectSets1 = [
-  {
-    setName: 1,
-    projects: [
-      {
-        name: "Project 1",
-        startDate: "09-01-2015",
-        endDate: "09-03-2015",
-        cityType: "low",
-      },
-      {
-        name: "Project 2",
-        startDate: "09-05-2015",
-        endDate: "09-10-2015",
-        cityType: "low",
-      },
-    ],
-  },
-  {
-    setName: 2,
-    projects: [
-      {
-        name: "Project 1",
-        startDate: "10-01-2015",
-        endDate: "10-03-2015",
-        cityType: "high",
-      },
-      {
-        name: "Project 2",
-        startDate: "11-05-2015",
-        endDate: "11-10-2015",
-        cityType: "low",
-      },
-      {
-        name: "Project 3",
-        startDate: "11-13-2015",
-        endDate: "11-20-2015",
-        cityType: "low",
-      },
-    ],
-  },
-];
+// Description: Converts projectSets to an array of arrays of objects
 
 // Convert date format from MM-DD-YYYY to YYYY-MM-DD
 function convertDateFormat(date) {
@@ -47,10 +6,10 @@ function convertDateFormat(date) {
   return `${year}-${month}-${day}`;
 }
 
-function convertProjectSets(projectSets1) {
+function convertProjectSets(projectSets) {
   const newFormat = [];
 
-  projectSets1.forEach(({ projects }) => {
+  projectSets.forEach(({ projects }) => {
     const newArray = projects.map(({ startDate, endDate, cityType }) => {
       return {
         cityType,
@@ -64,8 +23,5 @@ function convertProjectSets(projectSets1) {
 
   return newFormat;
 }
-
-// const projectSetsInNewFormat = convertProjectSets(projectSets1);
-// console.log("projects in new format", projectSetsInNewFormat);
 
 module.exports = convertProjectSets;

@@ -1,3 +1,5 @@
+//  Creates an object with dates as keys and objects as values between the start and end dates of each project
+
 // Helper function to convert a date string to a Date object
 const toDate = (dateString) => new Date(dateString);
 
@@ -8,21 +10,22 @@ const generateProjectSetDays = (projects) => {
   projects.forEach((project) => {
     const start = toDate(project.startDate);
     const end = toDate(project.endDate); // Fixed from 'end' to 'endDate'
-    const rate = project.cityType === "high" ? 85 : 75; // Fixed from 'h' and 'l' to 'high' and 'low'
-
+    const rate = project.cityType === "high" ? 85 : 75; // set rate based on cityType
+    // loop over the days and add a new date for every date in the range
     for (
       let day = new Date(start);
       day <= end;
       day.setDate(day.getDate() + 1)
     ) {
+      // convert the date to a string
       const dayStr = day.toISOString().split("T")[0];
       if (!projectSetDays[dayStr]) {
-        projectSetDays[dayStr] = { rate, city: project.cityType }; // Fixed to 'city'
+        projectSetDays[dayStr] = { rate, city: project.cityType };
       } else {
         // Update the rate if the cityType is 'high'
         if (project.cityType === "high") {
           projectSetDays[dayStr].rate = rate;
-          projectSetDays[dayStr].city = "high"; // Fixed to 'city'
+          projectSetDays[dayStr].city = "high";
         }
       }
     }
@@ -30,7 +33,6 @@ const generateProjectSetDays = (projects) => {
   // return an object with dates as keys and objects as values
   return projectSetDays;
 };
-
 
 module.exports = generateProjectSetDays;
 
