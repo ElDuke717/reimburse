@@ -122,14 +122,14 @@ projectSets1 = [
 projects: [
 {
 name: "Project 1",
-startDate: "9/1/15",
-endDate: "9/3/15",
+startDate: "09-01-15",
+endDate: "09-03-15",
 cityType: "low",
 },
 {
 name: "Project 2",
-startDate: "9/5/2015",
-endDate: "9/10/2015",
+startDate: "09-5-2015",
+endDate: "09-10-2015",
 cityType: "low",
 }
 ];
@@ -138,20 +138,20 @@ cityType: "low",
 projects: [
 {
 name: "Project 1",
-startDate: "10/1/2015",
-endDate: "10/3/2015",
+startDate: "10-01-2015",
+endDate: "10-03-2015",
 cityType: "high",
 },
 {
 name: "Project 2",
-startDate: "11/5/2015",
-endDate: "11/10/2015",
+startDate: "11-05-2015",
+endDate: "11-10-2015",
 cityType: "low",
 },
 {
 name: "Project 3",
-startDate: "11/13/2015",
-endDate: "11/20/2015",
+startDate: "11-13-2015",
+endDate: "11-20-2015",
 cityType: "low",
 }
 ];
@@ -175,14 +175,14 @@ The dates are then parsed by `generateProjectSetDays` to create an object of day
 
 ```javascript
 {
-  '2015-09-01': { rate: 45, city: 'low' },
+  '2015-09-01': { rate: 75, city: 'low' },
   '2015-09-02': { rate: 85, city: 'high' },
   '2015-09-03': { rate: 85, city: 'high' },
   '2015-09-04': { rate: 85, city: 'high' },
   '2015-09-05': { rate: 85, city: 'high' },
   '2015-09-06': { rate: 85, city: 'high' },
   '2015-09-07': { rate: 75, city: 'low' },
-  '2015-09-08': { rate: 45, city: 'low' }
+  '2015-09-08': { rate: 75, city: 'low' }
 }
 ```
 
@@ -203,3 +203,13 @@ The `projectDays` object above is then passed to `changeRates` to find travel da
   '2015-09-14': { rate: 55, city: 'high' }
 }
 ```
+
+## Testing
+
+- Check application handling of overlapping dates - see `generateProjectSetDays` for any elimination of overlapping dates OR in `changeRates` for any elimination of overlapping dates.
+- Hand calculate project entries and check against app output.
+
+### Testing Notes 10-18-23
+
+- Confirm when projects overlap in a set, then the days are counted as full days and the rate is counted at the high rate if low and high rate days overlap.
+- Confirm if projects overlap between sets, then they are handled separately, so if projects happen on the same day, between sets, they are calculated separately.

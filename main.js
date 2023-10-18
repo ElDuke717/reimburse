@@ -163,7 +163,7 @@ const main = async () => {
   const projectSetsFromAsker = await asker();
   // convertProjects converts the projectSets array into an array of arrays of objects
   const convertedProjectSets = convertProjects(projectSetsFromAsker);
-  console.log("Project Sets:", convertedProjectSets);
+  // console.log("Project Sets:", convertedProjectSets);
   // projectSetDays is an array of
   const projectSetDays = convertedProjectSets.map((set) =>
     generateProjectSetDays(set)
@@ -171,7 +171,7 @@ const main = async () => {
 
   // changedRates is an array from passing changeRates to change the rates for each day based on if there is a gap or not between dates
   const changedRates = projectSetDays.map((set) => changeRates(set));
-  console.log(changedRates);
+  // console.log(changedRates);
   // assign rates the value of changedRates
   rates = changedRates;
   return reimbursementCalculator(rates, setNames);

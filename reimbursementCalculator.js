@@ -15,10 +15,10 @@ const reimbursementCalculator = (rateData, setTitles) => {
       grandTotal += info.rate;
     }
 
-    console.log(`Total for set ${setTitles[index]}: ${setTotal}`);
+    console.log(`Total for set ${setTitles[index]}: $${setTotal}`);
   });
 
-  console.log("Grand total rate:", grandTotal);
+  console.log("Grand total rate: $", grandTotal);
 };
 
 // Test data
