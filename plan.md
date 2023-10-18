@@ -28,24 +28,27 @@ cities and low cost cities.
 Given the following sets of projects, provide code that will calculate the
 reimbursement for each.
 
-Set 1:  
+### Set 1:
+
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/3/15
 
-Set 2:  
+### Set 2:  
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/1/15  
 Project 2: High Cost City Start Date: 9/2/15 End Date: 9/6/15  
 Project 3: Low Cost City Start Date: 9/6/15 End Date: 9/8/15
 
-Set 3:  
+### Set 3:  
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/3/15  
 Project 2: High Cost City Start Date: 9/5/15 End Date: 9/7/15  
 Project 3: High Cost City Start Date: 9/8/15 End Date: 9/8/15
 
-Set 4:  
+### Set 4:  
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/1/15  
 Project 2: Low Cost City Start Date: 9/1/15 End Date: 9/1/15  
 Project 3: High Cost City Start Date: 9/2/15 End Date: 9/2/15  
 Project 4: High Cost City Start Date: 9/2/15 End Date: 9/3/15
+
+(Using current assumptions, the total should be $1385)
 
 ## Clarifying questions
 
@@ -213,3 +216,16 @@ The `projectDays` object above is then passed to `changeRates` to find travel da
 
 - Confirm when projects overlap in a set, then the days are counted as full days and the rate is counted at the high rate if low and high rate days overlap.
 - Confirm if projects overlap between sets, then they are handled separately, so if projects happen on the same day, between sets, they are calculated separately.
+
+#### Confirm correct results per app assumptions:
+
+The app was tested using the project sets as laid out in the exercise, first the total reimbursement amount was calculated by hand, then the app was run to confirm the results:
+![reimburse-test](./img/hand-calc-totals.png)
+
+The test result was confirmed by running the application with the same scheme:
+
+![cli-test](./img/cli-test.png)
+
+Both the hand calculated and the app calculated results were the same for each project subtotal and the total reimbursement grand total amount.
+
+This is not the only test that was run - several smaller tests confirm that the app is functioning per the assumptions outlined above.
