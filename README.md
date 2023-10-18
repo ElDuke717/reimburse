@@ -1,18 +1,16 @@
 # Reimburse: Expense Reimbursement Application
 
----
-
-## Overview
+### Overview
 
 Reimburse is a simple application designed to help users calculate the amount they should be reimbursed for their business trips. It is a command line application and adheres to specific rules that consider various types of days (travel days, full days, etc.) and cities (low cost, high cost).
 
-## Features
+### Features
 
 - User-friendly CLI travel data input.
 - Use the command line with Node.js.
 - Dynamic calculation of reimbursement based on user input.
 
-## Requirements
+### Requirements
 
 - Node.js (for CLI)
 - An environment for running Node.js applications
@@ -31,7 +29,7 @@ Reimburse is a simple application designed to help users calculate the amount th
    cd reimbursement-app
    ```
 
-## Usage
+### Usage
 
 While in the base directory, run the application with Node.js.
 
@@ -52,11 +50,34 @@ To contribute to the project:
 3. Make your changes.
 4. Create a pull request.
 
+## Application Structure
+
+```bash
+.
+├── README.md
+├── changeRates.js
+├── convertProjects.js
+├── generateProjectSetDays.js
+├── img
+│   ├── cli-test.png
+│   └── hand-calc-totals.png
+├── main.js
+├── package.json
+├── plan.md
+└── reimbursementCalculator.js
+```
+
+The application is broken into several modules to make the code easier to read and maintain:
+
+- `main.js` is the entry point for the application. It contains the CLI logic, entry validation, and Classes for constructing projects and sets. The prompts are handled by `asker`, which is an ansynchronous function that returns a promise.
+- `convertProjects.js` contains the logic for converting the user input from an object for each set to an array for each set and objects containing the project data `cityType`, `startDate` and `endDate`.
+- `generateProjectSetDays.js` adds days between start and end dates to each project object.
+- `changedRates.js` contains the logic for calculating the reimbursement rates for each day based on whether it is a full day or a travel day.
+- `reimbursementCalculator.js` contains the logic for calculating the total reimbursement for each project, then logging the totals to the console.
+
 ## License
 
 MIT
-
----
 
 ## Author
 

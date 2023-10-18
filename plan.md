@@ -1,6 +1,6 @@
-# Reimburse
+# Reimbursement App
 
----
+This application is a program run on the command line used for calculating reimbursement amounts for a set of projects. The application is written in JavaScript and can be run with Node.js.
 
 ## The problem
 
@@ -10,7 +10,7 @@ the last day of a project are always "travel" days. Days in the middle of a proj
 are "full" days. There are also two types of cities a project can be in, high cost
 cities and low cost cities.
 
-## A few rules:
+## The rules:
 
 - First day and last day of a project, or sequence of projects, is a travel day.
 - Any day in the middle of a project, or sequence of projects, is considered a full
@@ -32,17 +32,20 @@ reimbursement for each.
 
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/3/15
 
-### Set 2:  
+### Set 2:
+
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/1/15  
 Project 2: High Cost City Start Date: 9/2/15 End Date: 9/6/15  
 Project 3: Low Cost City Start Date: 9/6/15 End Date: 9/8/15
 
-### Set 3:  
+### Set 3:
+
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/3/15  
 Project 2: High Cost City Start Date: 9/5/15 End Date: 9/7/15  
 Project 3: High Cost City Start Date: 9/8/15 End Date: 9/8/15
 
-### Set 4:  
+### Set 4:
+
 Project 1: Low Cost City Start Date: 9/1/15 End Date: 9/1/15  
 Project 2: Low Cost City Start Date: 9/1/15 End Date: 9/1/15  
 Project 3: High Cost City Start Date: 9/2/15 End Date: 9/2/15  
@@ -60,10 +63,11 @@ Project 4: High Cost City Start Date: 9/2/15 End Date: 9/3/15
 
 Essentially, we have to determine how many travel days and how many full days are in a set of projects and part of this operation requires determining if projects overlap. If they overlap, then we have to make sure to count those days as full days. Days on the flanks are travel days. Once we have the travel days and full days, we can determine the rate based on whether they are in a high cost or low cost city, then we can calculate the reimbursement amount for each segment and add them together to get the total reimbursement amount.
 
-Formula for calculating reimbursement amount:
+## Formula for calculating reimbursement amount:
 
 - Travel days: 45 (low cost) or 55 (high cost) dollars per day
 - Full days: 75 (low cost) or 85 (high cost) dollars per day
+- If projects overlap, then the days are counted as full days and the rate is counted at the high rate if low and high rate days overlap.
 
 - Make a class for a project to construct - each project has a start date and an end date, and a city type (low or high cost)
 

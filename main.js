@@ -65,12 +65,12 @@ const isValidCityType = (type) => {
 // initialize rates to hold value of changedRates, returned by main
 let rates;
 
-// initialize setNames, an array to hold the names of the sets
+// initialize setNames, an array to hold the names of the sets, used in the output
 const setNames = [];
 
 // Main function to ask all the questions and creates objects based on projects and projectSet arrays
 // returns a promise that resolves with the projectSets array, an array of objects, each containing a set name and an array of projects
-// More data is collected than may be needed, but this allows for more flexibility in the future
+// Data is collected in this way to preserve the set name and also allow for data to be manipulated in other ways if needed.
 const asker = async () => {
   while (true) {
     const setName = await askQuestion(
@@ -157,14 +157,14 @@ const asker = async () => {
   return projectSets;
 };
 
-// Main function to run the program - asynchronous as it issues a promise while questions are asked
+// Main function to run the program - asynchronous, it issues a promise while questions are asked
 const main = async () => {
   // asker is async to await the response from the user
   const projectSetsFromAsker = await asker();
   // convertProjects converts the projectSets array into an array of arrays of objects
   const convertedProjectSets = convertProjects(projectSetsFromAsker);
   // console.log("Project Sets:", convertedProjectSets);
-  // projectSetDays is an array of
+  // projectSetDays is an array of arrays of objects with dates as keys and objects as values between the start and end dates of each project
   const projectSetDays = convertedProjectSets.map((set) =>
     generateProjectSetDays(set)
   );
@@ -174,6 +174,7 @@ const main = async () => {
   // console.log(changedRates);
   // assign rates the value of changedRates
   rates = changedRates;
+  // pass the rates and setNames to reimbursementCalculator to calculate the total rates for each project set and the grand total.  The results are logged by reimbursementCalculator.
   return reimbursementCalculator(rates, setNames);
 };
 

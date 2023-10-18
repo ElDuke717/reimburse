@@ -3,7 +3,7 @@
 // Helper function to convert a date string to a Date object
 const toDate = (dateString) => new Date(dateString);
 
-// Takes an array of projects and returns an object with dates as keys and objects as values
+// Takes an array of projects and adds days between start and end dates.
 const generateProjectSetDays = (projects) => {
   let projectSetDays = {};
 

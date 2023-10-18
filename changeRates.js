@@ -3,6 +3,7 @@
 // 2. If a date is next to a gap and the rate is 75, the rate is 45
 // 3. If a project is next to a gap and the cityType is low, the rate is 45.  Similarly, if a project is next to a gap and the cityType is high, the rate is 55.
 
+// Input: An object with dates as keys and objects as values
 const changeRates = (daysObj) => {
   // Sort the dates
   const sortedDates = Object.keys(daysObj).sort(
@@ -23,6 +24,7 @@ const changeRates = (daysObj) => {
       gapToNext > 1 ||
       gapToPrev > 1
     ) {
+      // determine rate
       if (daysObj[sortedDates[i]].rate === 85) {
         daysObj[sortedDates[i]].rate = 55;
       } else if (daysObj[sortedDates[i]].rate === 75) {
@@ -30,65 +32,8 @@ const changeRates = (daysObj) => {
       }
     }
   }
-
+  // return the object with the changed rates
   return daysObj;
 };
-
-// const projectDays = {
-//   "2015-09-01": { rate: 75, city: "low" },
-//   "2015-09-02": { rate: 85, city: "high" },
-//   "2015-09-03": { rate: 85, city: "high" },
-//   "2015-09-04": { rate: 85, city: "high" },
-//   "2015-09-05": { rate: 85, city: "high" },
-//   "2015-09-06": { rate: 85, city: "high" },
-//   "2015-09-07": { rate: 75, city: "low" },
-//   "2015-09-08": { rate: 75, city: "low" },
-// };
-
-// const projectDays2 = {
-//   "2015-09-01": { rate: 75, city: "low" },
-//   "2015-09-03": { rate: 85, city: "high" },
-//   "2015-09-04": { rate: 85, city: "high" },
-//   "2015-09-05": { rate: 55, city: "high" },
-//   "2015-09-07": { rate: 75, city: "low" },
-//   "2015-09-08": { rate: 75, city: "low" },
-//   "2015-09-09": { rate: 75, city: "low" },
-//   "2015-09-11": { rate: 85, city: "high" },
-//   "2015-09-12": { rate: 85, city: "high" },
-//   "2015-09-13": { rate: 85, city: "high" },
-//   "2015-09-14": { rate: 85, city: "high" },
-// };
-
-// const projectDays3 = {
-//   "2010-05-10": { rate: 75, city: "low" },
-//   "2010-05-11": { rate: 75, city: "low" },
-//   "2010-05-12": { rate: 75, city: "low" },
-//   "2010-05-13": { rate: 75, city: "low" },
-//   "2010-05-14": { rate: 75, city: "low" },
-//   "2010-05-15": { rate: 75, city: "low" },
-//   "2010-06-01": { rate: 75, city: "low" },
-//   "2010-06-02": { rate: 75, city: "low" },
-//   "2010-06-03": { rate: 75, city: "low" },
-//   "2010-06-04": { rate: 75, city: "low" },
-//   "2010-06-05": { rate: 75, city: "low" },
-//   "2010-09-09": { rate: 75, city: "low" },
-//   "2010-09-10": { rate: 75, city: "low" },
-//   "2010-09-11": { rate: 75, city: "low" },
-//   "2010-09-12": { rate: 75, city: "low" },
-// };
-
-// const projectDays4 = {
-//   "2010-05-20": { rate: 75, city: "low" },
-//   "2010-05-21": { rate: 75, city: "low" },
-//   "2010-05-22": { rate: 75, city: "low" },
-//   "2010-05-23": { rate: 75, city: "low" },
-//   "2010-05-24": { rate: 75, city: "low" },
-//   "2010-05-25": { rate: 75, city: "low" },
-// };
-
-// console.log(changeRates(projectDays));
-// console.log(changeRates(projectDays2));
-// console.log(changeRates(projectDays3));
-// console.log(changeRates(projectDays4));
 
 module.exports = changeRates;
