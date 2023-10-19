@@ -62,6 +62,11 @@ const isValidCityType = (type) => {
   return type === "l" || type === "h";
 };
 
+// Helper function to ensure the y or n response is valid:
+const isYesOrNo = (type) => {
+  return type === "y" || type === "n";
+};
+
 // initialize rates to hold value of changedRates, returned by main
 let rates;
 
@@ -131,10 +136,22 @@ const asker = async () => {
       };
       projectSet.push(project);
 
-      const anotherProject = await askQuestion(
-        rl,
-        "Would you like to add another project? (y/n) "
-      );
+      // prompt for anotherProject has logic to make sure only y or n is entered
+      let anotherProject;
+      while (true) {
+        anotherProject = await askQuestion(
+          rl,
+          "Would you like to add another project? (y/n) "
+        );
+        if (
+          anotherProject.toLowerCase() === "n" ||
+          anotherProject.toLowerCase() === "y"
+        ) {
+          break;
+        } else {
+          console.log("Invalid input. Please enter 'y' or 'n'.");
+        }
+      }
       if (anotherProject.toLowerCase() === "n") {
         break;
       }
@@ -142,10 +159,22 @@ const asker = async () => {
     // push project sets to an array to hold them
     projectSets.push({ setName, projects: projectSet });
 
-    const anotherSet = await askQuestion(
-      rl,
-      "Would you like to add another project set? (y/n) "
-    );
+    // anotherSet has logic to make sure only y or n is entered
+    let anotherSet;
+    while (true) {
+      anotherSet = await askQuestion(
+        rl,
+        "Would you like to add another project set? (y/n) "
+      );
+      if (
+        anotherSet.toLowerCase() === "n" ||
+        anotherSet.toLowerCase() === "y"
+      ) {
+        break;
+      } else {
+        console.log("Invalid input. Please enter 'y' or 'n'.");
+      }
+    }
     if (anotherSet.toLowerCase() === "n") {
       break;
     }
@@ -163,7 +192,6 @@ const main = async () => {
   const projectSetsFromAsker = await asker();
   // convertProjects converts the projectSets array into an array of arrays of objects
   const convertedProjectSets = convertProjects(projectSetsFromAsker);
-  // console.log("Project Sets:", convertedProjectSets);
   // projectSetDays is an array of arrays of objects with dates as keys and objects as values between the start and end dates of each project
   const projectSetDays = convertedProjectSets.map((set) =>
     generateProjectSetDays(set)

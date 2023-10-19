@@ -69,6 +69,8 @@ Essentially, we have to determine how many travel days and how many full days ar
 - Full days: 75 (low cost) or 85 (high cost) dollars per day
 - If projects overlap, then the days are counted as full days and the rate is counted at the high rate if low and high rate days overlap.
 
+## Planning:
+
 - Make a class for a project to construct - each project has a start date and an end date, and a city type (low or high cost)
 
 - Prompt the user for their name

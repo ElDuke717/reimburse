@@ -18,7 +18,7 @@ const reimbursementCalculator = (rateData, setTitles) => {
     console.log(`Total for set ${setTitles[index]}: $${setTotal}`);
   });
 
-  console.log("Grand total rate: $", grandTotal);
+  console.log("Total Reimbursement: $", grandTotal);
 };
 
 module.exports = reimbursementCalculator;
