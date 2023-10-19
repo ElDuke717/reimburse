@@ -4,7 +4,7 @@
   "description": "A simple command line app that calculates reimbursement expenses based on project sets, duration of each project and city cost.",
   "main": "reimburse.js",
   "scripts": {
-    "test": "node reimburse.js"
+    "test": "node main.js"
   },
   "repository": {
     "type": "git",

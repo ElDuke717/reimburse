@@ -63,13 +63,13 @@ Project 4: High Cost City Start Date: 9/2/15 End Date: 9/3/15
 
 Essentially, we have to determine how many travel days and how many full days are in a set of projects and part of this operation requires determining if projects overlap. If they overlap, then we have to make sure to count those days as full days. Days on the flanks are travel days. Once we have the travel days and full days, we can determine the rate based on whether they are in a high cost or low cost city, then we can calculate the reimbursement amount for each segment and add them together to get the total reimbursement amount.
 
-## Formula for calculating reimbursement amount:
+### Formula for calculating reimbursement amount:
 
 - Travel days: 45 (low cost) or 55 (high cost) dollars per day
 - Full days: 75 (low cost) or 85 (high cost) dollars per day
 - If projects overlap, then the days are counted as full days and the rate is counted at the high rate if low and high rate days overlap.
 
-## Planning:
+### Approach:
 
 - Make a class for a project to construct - each project has a start date and an end date, and a city type (low or high cost)
 
@@ -105,7 +105,9 @@ Essentially, we have to determine how many travel days and how many full days ar
 - What is the city type of your project? (low or high cost)
 - Would you like to add another project? (y/n)
 
-## Logic behind travel days
+### Logic
+
+#### Logic behind travel days
 
 - If there is a gap between projects, then the days on either side of that gap are travel days.
 - If two projects push up against each other, or overlap, then those days are full days as well.
@@ -113,7 +115,7 @@ Essentially, we have to determine how many travel days and how many full days ar
 - A travel day is reimbursed at a rate of 45 dollars per day in a low cost city.
 - A travel day is reimbursed at a rate of 55 dollars per day in a high cost city.
 
-## Logic behind full days
+#### Logic behind full days
 
 - A full day is reimbursed at a rate of 75 dollars per day in a low cost city.
 - A full day is reimbursed at a rate of 85 dollars per day in a high cost city.
